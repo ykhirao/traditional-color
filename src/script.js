@@ -6,6 +6,8 @@ var option = {
     console.log(payload.dominant);
     console.log(payload.secondary);
     console.log(payload.palette);
+    document.querySelector("#dominant").style = "background-color:" + payload.dominant + ";"
+    document.querySelector("#dominant").innerText += payload.dominant
     payload.palette.forEach((color) =>{
       console.log('%csam', 'background-color:'+color)
     })
