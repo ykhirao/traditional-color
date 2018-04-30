@@ -35,9 +35,12 @@ console.log(colorsObj2)
 const colorsObj2colorRuby = colorsObj2.map((color) => {
   return(color.colorRuby)
 })
+console.log(colorsObj2colorRuby)
 
 const tmp = colorsObj.filter((color)=> {
-  return(colorsObj2colorRuby.indexOf(color.colorRuby))
+  color.count = 0
+  return(colorsObj2colorRuby.includes(color.colorRuby))
 })
 
 console.log(JSON.stringify(tmp))
+console.log(tmp.length)
