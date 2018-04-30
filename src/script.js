@@ -1,5 +1,5 @@
 var option = {
-  paletteSize: 10,
+  paletteSize: 1,
   exclude: ['rgb(0,0,0)', 'rgb(255,255,255)'],
   success: function(payload) {
     console.log(payload)

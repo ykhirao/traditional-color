@@ -41,8 +41,8 @@
     for (var prop in palette) { arr.push( frmtPobj(prop, palette[prop]) ) };
     arr.sort(function(a, b) { return (b.count - a.count) });
     return arr;
-  };  
-  
+  };
+
   var fitPalette = function(arr, fitSize) {
     if (arr.length > fitSize ) {
     return arr.slice(0,fitSize);
@@ -51,7 +51,7 @@
     return arr;
   };
   };
-  
+
   var frmtPobj = function(a,b){
     return {name: makeRGB(a), count: b};
   }
@@ -64,7 +64,12 @@
 
   var RGBaster = {};
 
+  RGBaster.sample = function(){
+    console.log(sample)
+  }
+
   RGBaster.colors = function(img, opts){
+    console.log("this", this)
 
     opts = opts || {};
     var exclude = opts.exclude || [ ], // for example, to exclude white and black:  [ '0,0,0', '255,255,255' ]
