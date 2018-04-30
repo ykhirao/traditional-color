@@ -28,7 +28,6 @@
 
     while (++i < colorsArr.length) {
       diff = Math.abs(distance3D(colorsArr[i], targetRgbArr));
-      // console.log(diff)
 
       if (diff < minDiff) {
         minDiff = diff;
