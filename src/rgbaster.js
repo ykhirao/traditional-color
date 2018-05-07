@@ -2,6 +2,10 @@
 
   "use strict";
 
+  if (typeof window.TraditionalColors == "function") {
+    const tc = new window.TraditionalColors;
+  }
+
   function rgbStrToArr(str) {
     // from text "rgb(4,8,16)" to arr [4, 8, 16]
     var result = /([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})/i.exec(str);
