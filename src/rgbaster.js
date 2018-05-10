@@ -105,9 +105,9 @@
               }
 
               if ( opts.success ) {
-                
+
                 var palette = fitPalette( mapPalette(colorCounts), paletteSize+1 );
-                console.log(palette.slice(1))
+
                 opts.success({
                   dominant: palette[0].name,
                   secondary: palette[1].name,

@@ -11,6 +11,15 @@
       return Math.sqrt((Math.pow((a.r - b.r), 2) + Math.pow((a.g - b.g), 2) + Math.pow((a.b - b.b), 2)));
     }
 
+    rgbStrToObj(str) {
+      // from text "rgb(4,8,16)" to obj { r: 4, g: 8, a:16 }
+      var result = /([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})/i.exec(str);
+      const r = parseInt(result[1])
+      const g = parseInt(result[2])
+      const b = parseInt(result[3])
+      return result ? {r, g, b} : null;
+    }
+
     getNearColor(rgb) {
       let i = 0,
         approximationIndex = 0,

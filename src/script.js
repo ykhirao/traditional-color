@@ -7,22 +7,61 @@ function setColors(color) {
   document.querySelector("#traditional").appendChild(newDiv);
 }
 
+function deleteLi(){
+  document.querySelectorAll("#traditional > li").forEach((k) => { k.remove() })
+}
+
+function createColorLi(color) {
+  const newLi = document.createElement("li");
+  const newContent = document.createTextNode(
+    `${color.name} ${color.ruby} ${color.hex}`
+  );
+  newLi.appendChild(newContent);
+  newLi.style = "background-color:" + color.hex + ";"
+  return newLi
+}
+
+function createLi(text) {
+  const newLi = document.createElement("li");
+  const newContent = document.createTextNode(text);
+  newLi.appendChild(newContent);
+  return newLi
+}
+
+const success = function(payload) {
+  let colorsCount = { }
+  payload.palette.forEach((color) => {
+    const nearColorObj = tc.getNearColor(tc.rgbStrToObj(color.name))
+
+    if ( nearColorObj.hex in colorsCount ) {
+      colorsCount[nearColorObj.hex].count += color.count
+    } else {
+      colorsCount[nearColorObj.hex] = {
+        count: color.count,
+        obj: nearColorObj
+      }
+    }
+  })
+  colorsCount = Object.values(colorsCount).sort((a, b) =>  b.count - a.count)
+  const ul = document.querySelector("#traditional")
+  deleteLi()
+  colorsCount.map((color) => {
+    const li = createColorLi(color.obj)
+    ul.appendChild(li)
+    // console.log('%c this is color' + `${color.obj.hex}, ${color.obj.name}`, 'background-color:'+ color.obj.hex);
+  })
+
+}
+
 var option = {
   paletteSize: 1000,
   exclude: ['rgb(0,0,0)', 'rgb(255,255,255)'],
-  success: function(payload) {
-    console.log(payload)
-    document.querySelector("#dominant").style = "background-color:" + payload.dominant + ";"
-    document.querySelector("#dominant").innerText += payload.dominant
-    // payload.traditionalColors.forEach((color) =>{
-    //   console.log('%c this is color' + `${color.hex}, ${color.colorName}`, 'background-color:'+ color.hex);
-    //   setColors(color)
-    // })
-  }
+  success
 }
 
 var image = document.getElementById('image');
 RGBaster.colors(image, option);
+const tc = new window.TraditionalColors();
 
 document.querySelector("#file").addEventListener("change", function() {
   console.log("this", this)
@@ -31,6 +70,8 @@ document.querySelector("#file").addEventListener("change", function() {
     reader.readAsDataURL(this.files[0]);
 
     reader.onload = function() {
+      deleteLi()
+      document.querySelector("#traditional").appendChild(createLi("読み込み中"))
       img = document.querySelector('#image')
       img.setAttribute('src', reader.result);
       RGBaster.colors(img, option);
