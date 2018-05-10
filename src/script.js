@@ -8,20 +8,16 @@ function setColors(color) {
 }
 
 var option = {
-  paletteSize: 10,
+  paletteSize: 1000,
   exclude: ['rgb(0,0,0)', 'rgb(255,255,255)'],
   success: function(payload) {
     console.log(payload)
-    // console.log(payload.dominant);
-    // console.log(payload.secondary);
-    // console.log(payload.palette);
-    // console.log(payload.traditionalColors);
     document.querySelector("#dominant").style = "background-color:" + payload.dominant + ";"
     document.querySelector("#dominant").innerText += payload.dominant
-    payload.traditionalColors.forEach((color) =>{
-      console.log('%c this is color' + `${color.hex}, ${color.colorName}`, 'background-color:'+ color.hex);
-      setColors(color)
-    })
+    // payload.traditionalColors.forEach((color) =>{
+    //   console.log('%c this is color' + `${color.hex}, ${color.colorName}`, 'background-color:'+ color.hex);
+    //   setColors(color)
+    // })
   }
 }
 
