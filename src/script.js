@@ -1,31 +1,25 @@
-function setColors(color) {
-  var newDiv = document.createElement("li");
-  var newContent = document.createTextNode(color.colorName);
-  // テキストノードを新規作成した div に追加します
-  newDiv.appendChild(newContent)
-  newDiv.style.backgroundColor = color.hex;
-  document.querySelector("#traditional").appendChild(newDiv);
+function Elm(name, attributes, children = []){
+  let elm = document.createElement(name);
+  for(let name in attributes ){
+      elm.setAttribute(name, attributes[name]);
+  }
+  children.forEach(e=>elm.appendChild(e))
+  return elm;
 }
+
+let Text = (nodeValue=>document.createTextNode(nodeValue))
 
 function deleteLi(){
   document.querySelectorAll("#traditional > li").forEach((k) => { k.remove() })
 }
 
 function createColorLi(color) {
-  const newLi = document.createElement("li");
-  const newContent = document.createTextNode(
-    `${color.name} ${color.ruby} ${color.hex}`
-  );
-  newLi.appendChild(newContent);
-  newLi.style = "background-color:" + color.hex + ";"
-  return newLi
-}
-
-function createLi(text) {
-  const newLi = document.createElement("li");
-  const newContent = document.createTextNode(text);
-  newLi.appendChild(newContent);
-  return newLi
+  text = Text(`${color.name} ${color.ruby} ${color.hex}`)
+  const elm = Elm("li",
+    {"style": `background-color: ${color.hex};`, "class": "color-li"},
+    [Elm("span", {"class": "white-span"}, [text])]
+  )
+  return elm
 }
 
 const success = function(payload) {
@@ -48,7 +42,6 @@ const success = function(payload) {
   colorsCount.map((color) => {
     const li = createColorLi(color.obj)
     ul.appendChild(li)
-    // console.log('%c this is color' + `${color.obj.hex}, ${color.obj.name}`, 'background-color:'+ color.obj.hex);
   })
 
 }
@@ -64,14 +57,14 @@ RGBaster.colors(image, option);
 const tc = new window.TraditionalColors();
 
 document.querySelector("#file").addEventListener("change", function() {
-  console.log("this", this)
   if (this.files.length > 0) {
     var reader = new FileReader();
     reader.readAsDataURL(this.files[0]);
 
     reader.onload = function() {
       deleteLi()
-      document.querySelector("#traditional").appendChild(createLi("読み込み中"))
+      const li = Elm("li", {}, [Text("読み込み中")])
+      document.querySelector("#traditional").appendChild(li)
       img = document.querySelector('#image')
       img.setAttribute('src', reader.result);
       RGBaster.colors(img, option);
