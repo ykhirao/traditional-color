@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <input type="color" id="color" value="#85e464">
+    <span id="text">hex</span>
+  </div>
+  <div id="preventDefault">
+    <input type="color" id="color2" value="#85e464">
+    <span id="text2">伝統色（クリックできないよ）</span>
+  </div>
+  <script src="./traditionalColors.js"></script>
+  <script>
+  (function(){
+    const tc = new window.TraditionalColors();
+    function changeColor(color) {
+      const nearColorObj = tc.getNearColor(tc.rgbStrToObj(color.name))
+    }
+
+    const pd = document.querySelector("#preventDefault")
+    pd.addEventListener(
+      "click",
+      function(e) {
+        e.preventDefault()
+      },
+      false
+    )
+
+    const input = document.querySelector("#color")
+    input.addEventListener(
+      "change",
+      function() {
+        document.querySelector("#text").innerText = this.value
+        const nearColorObj = tc.getNearColor(tc.hexToRgbObj(this.value))
+        document.querySelector("#color2").value = nearColorObj.hex
+        document.querySelector("#text2").innerText =
+          `${nearColorObj.name} ${nearColorObj.ruby} ${nearColorObj.hex}`
+      },
+     false
+    )
+  }());
+  </script>
+</body>
+</html>

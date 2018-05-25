@@ -11,13 +11,23 @@
       return Math.sqrt((Math.pow((a.r - b.r), 2) + Math.pow((a.g - b.g), 2) + Math.pow((a.b - b.b), 2)));
     }
 
+    regExpToRgb(result, decimal=10) {
+      const r = parseInt(result[1], decimal)
+      const g = parseInt(result[2], decimal)
+      const b = parseInt(result[3], decimal)
+      return {r, g, b}
+    }
+
     rgbStrToObj(str) {
       // from text "rgb(4,8,16)" to obj { r: 4, g: 8, a:16 }
       var result = /([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})/i.exec(str);
-      const r = parseInt(result[1])
-      const g = parseInt(result[2])
-      const b = parseInt(result[3])
-      return result ? {r, g, b} : null;
+      return result ? this.regExpToRgb(result) : null;
+    }
+
+    hexToRgbObj(str){
+      // "#1234aa" to { r: 12, g: 34, a: aa }
+      var result = /([a-zA-Z0-9]{2})([a-zA-Z0-9]{2})([a-zA-Z0-9]{2})/i.exec(str);
+      return result ? this.regExpToRgb(result, 16) : null;
     }
 
     getNearColor(rgb) {
