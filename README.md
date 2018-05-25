@@ -4,6 +4,7 @@
 
 ## links
 
-- [GitHub.io](https://ykhirao.github.io/traditional-color/)
+- GitHub.io https://ykhirao.github.io/traditional-color/
+- https://ykhirao.github.io/traditional-color/src/index.html
 - Forked js [rgbaster.js](https://github.com/briangonzalez/rgbaster.js/)
 - Use bulma css [bulma](https://github.com/jgthms/bulma)
